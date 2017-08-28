@@ -1,0 +1,60 @@
+;; Path stuff
+(getenv "PATH")
+ (setenv "PATH"
+(concat
+ "/Library/TeX/texbin/:/usr/local/bin/" ":"
+
+ (getenv "PATH")))
+
+;; Packages
+(require 'package) ;; You might already have this line
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/"))
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+(package-initialize) ;; You might already have this line
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (tango-dark)))
+ '(ns-use-fullscreen-animation t)
+ '(package-selected-packages (quote (drag-stuff magit markdown-mode auctex ivy evil)))
+ '(tool-bar-mode nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "#2e3436" :foreground "#eeeeec" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Monaco")))))
+
+ ;; Evil mode for when you wanna use vim
+(require 'evil)
+(evil-mode 1)
+
+ ;; Ivy mode for convenient search of commands and files
+(ivy-mode 1)
+
+;; AUCTeX stuff
+;(setq TeX-auto-save t)
+;(setq TeX-parse-self t)
+;(setq TeX-save-query nil)
+;(setq TeX-PDF-mode t)
+
+
+(setq redisplay-dont-pause t)
+
+
+;; Backup file settings
+(setq backup-directory-alist `(("." . "~/.saves")))
+(setq backup-by-copying t)
+(setq delete-old-versions t
+  kept-new-versions 6
+  kept-old-versions 2
+  version-control t)
+
+;; to move lines
+(drag-stuff-global-mode 1)
+(drag-stuff-define-keys)
